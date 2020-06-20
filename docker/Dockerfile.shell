@@ -1,0 +1,17 @@
+FROM python:3.7-stretch
+
+RUN pip3 install --user \
+    torch \
+    torchvision
+
+RUN pip3 install --user \
+    numpy \
+    snakemake \
+    pandas \
+    chartify \
+    matplotlib \
+    holidays \
+    click \
+    pyarrow
+
+ENV PATH=$PATH:/root/.local/bin
