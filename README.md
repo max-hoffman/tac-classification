@@ -2,18 +2,14 @@
 
 ## Work Overview
 
-### Critiques of Paper
+### My Progress
 
-The paper somehow gets 2/3 sober 1/3 inebriated splits for the data,
-which is the inverse of what I found. They must have removed most of
-the TAC >= .08 data with their filtering. I am not sure if this is valid
-or not because I cannot find any source for their preprocessing, but
-removing ~half of the data is sort of suspicious.
-
-The paper does not indicate train/test splits by user source, which means
-they have a mixture of each user's data in training and testing pools.
-The model will overfit on individual user trends in the data,
-artificially boosting the published performance.
+I have code and plots for preprocessing and training, but none of my
+models could converge. I tried a straight-forward RNN to start off with,
+but the nature of the data isn't realy conducive to sequential modeling.
+I made progress doing manual and specrogram featurization so I could use
+other classification methods, but I did not have time to try a host of
+new models and the newly featurized data.
 
 ## Code Overview
 
@@ -32,6 +28,19 @@ you get errors building the docker images boost the docker RAM):
   all of the same dependencies that were used during training
 
 ## Methodology
+
+### Comments on Paper
+
+The paper somehow gets 2/3 sober 1/3 inebriated splits for the data,
+which is the inverse of what I found. They must have removed most of
+the TAC >= .08 data with their filtering. I am not sure if this is valid
+or not because I cannot find any source for their preprocessing, but
+removing ~half of the data is sort of suspicious.
+
+The paper does not indicate train/test splits by user source, which means
+they have a mixture of each user's data in training and testing pools.
+The model will overfit on individual user trends in the data,
+artificially boosting the published performance.
 
 ### Features
 
@@ -93,25 +102,6 @@ gradients without a finer-grain loss function. In a production system
 with more data I would use either original TAC or probability outputs,
 but I am worried about overfitting with so few users to train with.
 
-### Model
-
-Feature set:
-
-* `hour_of_day` (0-23)
-* `day_of_week` (0-6)
-* `month_of_year` (0-11)
-* `is_holiday` (bool)
-* `x` (double)
-* `y` (double)
-* `z` (double)
-
-Output:
-* `target` (bool)
-
-The model will be an RNN that expects (10,7)-shaped inputs.
-
-I am not sure if I want to normalize the accelerometer data or not.
-
 ### Preprocessing
 
 Considerations:
@@ -123,6 +113,5 @@ Considerations:
   has 2,374,695 accelerometer time-points, but 55 TAC readings). I
   have to extrapolate the target for intermediate timestamps.
 
-* 70% of the windows given are inebriated (24386 / 35139). pids 1-11 :
-  28011, pids 0, 11-14 : 7128
+* 70% of the windows given are inebriated (24386 / 35139).
 

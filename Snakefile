@@ -9,7 +9,6 @@ rule all:
         [f"data/train_input/{pid}.pq" for pid in pids],
         'data/train_input/train.pq',
         'data/train_input/test.pq',
-        'data/train_output/eval.tsv'
 
 rule fetch_data:
     output:
@@ -25,7 +24,7 @@ rule format:
     output:
         'data/train_input/{pid}.pq'
     shell:
-        'python3 {script_path}/format.py'
+        'python3 {script_path}/format_dt.py'
         ' --accelerometer-path {input.acc}'
         ' --tac-path {input.tac}'
         ' --output-path {output}'

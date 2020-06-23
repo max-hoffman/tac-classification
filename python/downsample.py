@@ -15,12 +15,12 @@ def main(input_paths, train_path, test_path):
     train_df = pd.concat([pd.read_parquet(f) for f in input_paths[4:11]])
     test_df = pd.concat([pd.read_parquet(f) for f in input_paths[:4]+input_paths[11:]])
 
-    train_df_neg = train_df[~train_df.target]
-    train_df_pos = train_df[train_df.target].sample(train_df_neg.shape[0])
+    train_df_neg = train_df[train_df.target == 0]
+    train_df_pos = train_df[train_df.target == 1].sample(train_df_neg.shape[0])
     pd.concat([train_df_neg, train_df_pos]).to_parquet(train_path)
 
-    test_df_neg = test_df[~test_df.target]
-    test_df_pos = test_df[test_df.target].sample(test_df_neg.shape[0])
+    test_df_neg = test_df[test_df.target == 0]
+    test_df_pos = test_df[test_df.target == 1].sample(test_df_neg.shape[0])
     pd.concat([test_df_neg, test_df_pos]).to_parquet(test_path)
 
 if __name__=="__main__":

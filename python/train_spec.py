@@ -27,7 +27,6 @@ def eval_accuracy(model, test_data, batch_size=32, seq_length=20, input_dim=7):
         correct += (pred == targets).sum()
         total += targets.shape[0]
         i += batch_size
-        #print("evaluating...", i)
 
     return float(correct/total)
 

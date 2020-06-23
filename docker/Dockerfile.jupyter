@@ -12,6 +12,18 @@ RUN pip3 install --user \
     matplotlib \
     holidays \
     click \
-    pyarrow
+    pyarrow \
+    webdriver-manager
+
+USER root
+
+RUN sudo wget \
+    https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip \
+    -O /usr/lib/chromedriver_linux64.zip \
+    && unzip /usr/lib/chromedriver_linux64.zip -d /usr/lib/ \
+    && rm -rf /usr/lib/chromedriver_linux64.zip \
+    && ln -s /usr/lib/chromedriver /usr/bin
+
+USER $NB_UID
 
 RUN PATH=$PATH:/home/jovyan/.local/bin

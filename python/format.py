@@ -27,7 +27,7 @@ def is_inebriated(tacs, timestamp, limit = 8e-3):
 @click.option('--output-path', required=True)
 @click.option('--pid', required=True)
 @click.option('--step-size', required=False, default=400)
-@click.option('--sparsity_factor', required=False, default=2)
+@click.option('--sparsity_factor', required=False, default=1)
 def main(accelerometer_path, tac_path, output_path, pid, step_size, sparsity_factor):
 
     acc_df = pd.read_csv(accelerometer_path)
